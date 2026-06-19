@@ -11,6 +11,7 @@
   <meta property="og:url" content="https://kberents.com">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://kberents.com/og-image.jpg">
+  <link rel="icon" type="image/png" href="favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -1736,11 +1737,28 @@
 
       if (!isOpen) {
         detail.classList.add('open');
+        window.location.hash = id;
         setTimeout(() => {
           detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 50);
+      } else {
+        history.pushState('', document.title, window.location.pathname);
       }
     }
+
+    // On page load, open project if hash is present
+    window.addEventListener('load', function() {
+      const hash = window.location.hash.replace('#', '');
+      if (hash) {
+        const detail = document.getElementById('detail-' + hash);
+        if (detail) {
+          detail.classList.add('open');
+          setTimeout(() => {
+            detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 300);
+        }
+      }
+    });
   </script>
 
 </body>
